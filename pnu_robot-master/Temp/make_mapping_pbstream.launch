@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Mapping -->
+    <node pkg="cartographer_ros" type="cartographer_offline_node" name="cartographer_node" args="
+    -configuration_directory $(find pnu_robot)/config
+        -configuration_basenames pnu_robot.lua
+        -urdf_filenames $(find pnu_robot)/urdf/pnu_robot.urdf
+        -bag_filenames $(find pnu_robot)/bags/mapping.bag
+        -keep_running false" output="screen"/>
+</launch>

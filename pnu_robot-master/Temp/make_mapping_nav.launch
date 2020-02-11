@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Mapping -->
+  <node name="cartographer_assets_writer" pkg="cartographer_ros"
+      type="cartographer_assets_writer" args="
+          -configuration_directory $(find pnu_robot)/config
+          -configuration_basename assets_writer_ros_map.lua
+          -urdf_filename $(find pnu_robot)/urdf/pnu_robot.urdf
+          -bag_filenames $(find pnu_robot)/bags/mapping.bag
+          -pose_graph_filename $(find pnu_robot)/bags/mapping.bag.pbstream"
+      output="screen">
+  </node>
+</launch>

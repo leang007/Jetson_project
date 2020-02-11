@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Robot description -->
+    <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0 0 0 0 /base_footprint /base_link 40" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_frame" args="0.05 0 0.1 0 0 0 /base_link /laser_frame 40" />
+
+    <!-- Lidar X4 -->
+    <include file="$(find pnu_robot)/launch/includes/ydlidar.launch">
+        <arg name="port" value="/dev/ttyLidar"/>
+        <arg name="frame_id" value="laser_frame"/>
+        <arg name="angle_min" value="-180"/>
+        <arg name="angle_max" value="180"/>
+        <arg name="range_min" value="0.1"/>
+        <arg name="range_max" value="10.0"/>
+    </include>
+
+    <!-- Robot base controller -->
+    <node pkg="pnu_robot" name="base_controller" type="base_controller.py"/>
+
+
+    <!-- Laser to Odometry -->
+    <!-- <include file="$(find pnu_robot)/launch/includes/rf2o.launch"/> -->
+
+    <!-- Bag scan -->
+    <node pkg="rosbag" type="record" name="record_scan" args="-O $(find pnu_robot)/bags/mapping.bag /scan"/>
+
+    <node pkg="cartographer_ros" type="cartographer_node" name="cartographer_node" args="-configuration_directory $(find pnu_robot)/config
+    -configuration_basename pnu_robot.lua"/>
+
+    <!-- Teleop -->
+    <include file="$(find pnu_robot)/launch/includes/teleop_key.launch"/>
+</launch>

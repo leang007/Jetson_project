@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+
+    <!-- Navigation move_base -->
+    <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen" clear_params="true">
+        <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+        <rosparam file="$(find pnu_robot)/config/movebase/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find pnu_robot)/config/movebase/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find pnu_robot)/config/movebase/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find pnu_robot)/config/movebase/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find pnu_robot)/config/movebase/move_base_params.yaml" command="load"/>
+        <!-- <rosparam file="$(find pnu_robot)/config/movebase/base_local_planner_params.yaml" command="load"/> -->
+        <rosparam file="$(find pnu_robot)/config/movebase/dwa_local_planner_params.yaml" command="load"/>
+    </node>
+
+</launch>

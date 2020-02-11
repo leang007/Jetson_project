@@ -1,0 +1,11 @@
+#http://www.reactivated.net/writing_udev_rules.html
+
+#sudo cp 99-pnu.rules /etc/udev/rules.d/
+#sudo udevadm control --reload-rules
+#sudo udevadm trigger
+
+# Base
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0777", SYMLINK="tty485"
+
+# YDLidar X4
+KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", GROUP:="dialout", MODE:="0777", SYMLINK="ttyLidar"
